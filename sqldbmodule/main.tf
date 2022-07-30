@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "sqldb" {
 }
 
 resource "azurerm_sql_server" "sqldb" {
-  name                         = "sqlserver-${var.resource_env}"
+  name                         = "mssqldbserver-${var.resource_env}"
   resource_group_name          = azurerm_resource_group.sqldb.name
   location                     = azurerm_resource_group.sqldb.location
   version                      = "12.0"
