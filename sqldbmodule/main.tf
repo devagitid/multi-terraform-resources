@@ -23,7 +23,7 @@ resource "azurerm_sql_server" "sqldb" {
 }
 
 resource "azurerm_storage_account" "sqldb" {
-  name                     = "sa-${var.resource_env}"
+  name                     = "${var.resource_env}sa"
   resource_group_name      = azurerm_resource_group.sqldb.name
   location                 = azurerm_resource_group.sqldb.location
   account_tier             = "Standard"
