@@ -25,7 +25,6 @@ steps:
     backendAzureRmStorageAccountName: 'backendstatestorage'
     backendAzureRmContainerName: 'devbackendstate'
     backendAzureRmKey: 'terraform.tfstate'
-    allowTelemetryCollection: true
 
 - task: TerraformCLI@0
   inputs:
