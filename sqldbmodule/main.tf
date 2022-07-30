@@ -4,15 +4,15 @@ default = "default"
 
 }
 
-resource "azurerm_resource_group" "${var.resource_env}" {
+resource "azurerm_resource_group" "sqldb" {
   name     = "${var.resource_env}-rg"
   location = "eastus"
 }
 
-resource "azurerm_sql_server" "${var.resource_env}" {
+resource "azurerm_sql_server" "sqldb" {
   name                         = "sqlserver-${var.resource_env}"
-  resource_group_name          = azurerm_resource_group.${var.resource_env}.name
-  location                     = azurerm_resource_group.${var.resource_env}.location
+  resource_group_name          = azurerm_resource_group.sqldb.name
+  location                     = azurerm_resource_group.sqldb.location
   version                      = "12.0"
   administrator_login          = "admin-${var.resource_env}"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd"
@@ -22,23 +22,23 @@ resource "azurerm_sql_server" "${var.resource_env}" {
   }
 }
 
-resource "azurerm_storage_account" "${var.resource_env}" {
+resource "azurerm_storage_account" "sqldb" {
   name                     = "sa-${var.resource_env}"
-  resource_group_name      = azurerm_resource_group.${var.resource_env}.name
-  location                 = azurerm_resource_group.${var.resource_env}.location
+  resource_group_name      = azurerm_resource_group.sqldb.name
+  location                 = azurerm_resource_group.sqldb.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-resource "azurerm_sql_database" "${var.resource_env}" {
+resource "azurerm_sql_database" "sqldb" {
   name                = "sqldatabase-${var.resource_env}"
-  resource_group_name = azurerm_resource_group.${var.resource_env}.name
-  location            = azurerm_resource_group.${var.resource_env}.location
-  server_name         = azurerm_sql_server.${var.resource_env}.name
+  resource_group_name = azurerm_resource_group.sqldb.name
+  location            = azurerm_resource_group.sqldb.location
+  server_name         = azurerm_sql_server.sqldb.name
 
   extended_auditing_policy {
-    storage_endpoint                        = azurerm_storage_account.${var.resource_env}.primary_blob_endpoint
-    storage_account_access_key              = azurerm_storage_account.${var.resource_env}.primary_access_key
+    storage_endpoint                        = azurerm_storage_account.sqldb.primary_blob_endpoint
+    storage_account_access_key              = azurerm_storage_account.sqldb.primary_access_key
     storage_account_access_key_is_secondary = true
     retention_in_days                       = 6
   }
