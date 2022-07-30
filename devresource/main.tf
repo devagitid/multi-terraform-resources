@@ -1,7 +1,9 @@
-variable "environment" {
+terraform {
+backend "azure" {}
+}
 
+variable "resource_env" {
 default = "dev"
-
 }
 
 module "sqldbresource" {
