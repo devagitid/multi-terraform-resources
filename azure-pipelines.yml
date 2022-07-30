@@ -12,9 +12,6 @@ pool:
 - task: TerraformCLI@0
   inputs:
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)- task: TerraformCLI@0
-  inputs:
-    command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/devresource/'
     environmentServiceName: 'Azure resource'
     allowTelemetryCollection: true'
@@ -29,4 +26,9 @@ pool:
     backendAzureRmKey: 'terraform.tfstate'
     allowTelemetryCollection: true
 
-
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/devresource/'
+    environmentServiceName: 'Azure resource'
+    allowTelemetryCollection: true
