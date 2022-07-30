@@ -36,13 +36,6 @@ resource "azurerm_sql_database" "sqldb" {
   location            = azurerm_resource_group.sqldb.location
   server_name         = azurerm_sql_server.sqldb.name
 
-  extended_auditing_policy {
-    storage_endpoint                        = azurerm_storage_account.sqldb.primary_blob_endpoint
-    storage_account_access_key              = azurerm_storage_account.sqldb.primary_access_key
-    storage_account_access_key_is_secondary = true
-    retention_in_days                       = 6
-  }
-
 
 
   tags = {
