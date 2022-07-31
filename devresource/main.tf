@@ -38,6 +38,6 @@ resource "azurerm_key_vault_secret" "kv" {
   key_vault_id = azurerm_key_vault.kv.id
   
   depends_on = [
-    module.sqldbresource..azurerm_sql_server.sqldb
+    module.sqldbresource.azurerm_sql_server.sqldb
   ]
 }
