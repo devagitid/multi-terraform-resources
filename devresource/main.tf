@@ -19,7 +19,8 @@ resource "azurerm_key_vault" "kv" {
 
   access_policy {
    
-      azure_ad_user_principal_names = ["Deva@devdattajadhav79gmail.onmicrosoft.com"]
+      tenant_id = data.azurerm_client_config.current.tenant_id
+      object_id = data.azurerm_client_config.current.object_id
       key_permissions               = ["get", "list"]
       secret_permissions            = ["get", "list"]
       certificate_permissions       = ["get", "import", "list"]
@@ -28,7 +29,7 @@ resource "azurerm_key_vault" "kv" {
   }
   
   depends_on = [
-    module.sqldbresource.azurerm_resource_group.sqldb
+    module.sqldbresource
   ]
 }
 
@@ -38,6 +39,6 @@ resource "azurerm_key_vault_secret" "kv" {
   key_vault_id = azurerm_key_vault.kv.id
   
   depends_on = [
-    module.sqldbresource.azurerm_sql_server.sqldb
+    module.sqldbresource
   ]
 }
