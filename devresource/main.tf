@@ -36,8 +36,8 @@ resource "azurerm_key_vault" "kv" {
 }
 
 resource "azurerm_key_vault_secret" "kv" {
-  name         = module.sqldbresource.azurerm_sql_server.sqldb.administrator_login
-  value        = module.sqldbresource.azurerm_sql_server.sqldb.administrator_login_password
+  name         = module.sqldbresource.output.administrator_login
+  value        = module.sqldbresource.output.administrator_login_password
   key_vault_id = azurerm_key_vault.kv.id
   
   depends_on = [
