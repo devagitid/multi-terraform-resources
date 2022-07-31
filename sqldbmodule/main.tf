@@ -42,6 +42,7 @@ resource "azurerm_sql_database" "sqldb" {
     environment = var.resource_env
   }
   
+}
  output "administrator_login" {
    value = azurerm_sql_server.sqldb.administrator_login
 }
