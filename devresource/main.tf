@@ -7,7 +7,9 @@ source = "../sqldbmodule/"
 resource_env = "dev"
 }
 
-
+data "azurerm_sql_server" "sqldb" {
+}
+  
 resource "azurerm_key_vault" "kv" {
   name                       = "keyvault01"
   location                   = azurerm_resource_group.sqldb.location
