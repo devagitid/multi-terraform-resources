@@ -15,8 +15,8 @@ data "azurerm_sql_server" "sqldb" {
   
 resource "azurerm_key_vault" "kv" {
   name                       = "keyvault01"
-  location                   = data.azurerm_resource_group.sqldb.location
-  resource_group_name        = data.azurerm_resource_group.sqldb.name
+  location                   = module.sqldbresource.azurerm_sql_server.sqldb.location
+  resource_group_name        = module.sqldbresource.azurerm_sql_server.sqldb.name
   sku_name                   = "premium"
   soft_delete_retention_days = 7
 
