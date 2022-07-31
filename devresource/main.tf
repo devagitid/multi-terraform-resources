@@ -15,8 +15,8 @@ data "azurerm_sql_server" "sqldb" {
   
 resource "azurerm_key_vault" "kv" {
   name                       = "keyvault01"
-  location                   = azurerm_resource_group.sqldb.location
-  resource_group_name        = azurerm_resource_group.sqldb.name
+  location                   = data.azurerm_resource_group.sqldb.location
+  resource_group_name        = data.azurerm_resource_group.sqldb.name
   sku_name                   = "premium"
   soft_delete_retention_days = 7
 
@@ -32,7 +32,7 @@ resource "azurerm_key_vault" "kv" {
 }
 
 resource "azurerm_key_vault_secret" "kv" {
-  name         = azurerm_sql_server.sqldb.administrator_login
-  value        = azurerm_sql_server.sqldb.administrator_login_password
+  name         = data.azurerm_sql_server.sqldb.administrator_login
+  value        = data.azurerm_sql_server.sqldb.administrator_login_password
   key_vault_id = azurerm_key_vault.kv.id
 }
