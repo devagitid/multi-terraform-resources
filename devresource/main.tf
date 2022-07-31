@@ -16,6 +16,10 @@ resource "azurerm_key_vault" "kv" {
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = "premium"
   soft_delete_retention_days = 7
+    
+  depends_on = [
+    module.sqldbresource
+  ]
 
   access_policy {
    
@@ -28,9 +32,7 @@ resource "azurerm_key_vault" "kv" {
     
   }
   
-  depends_on = [
-    module.sqldbresource
-  ]
+ 
 }
 
 resource "azurerm_key_vault_secret" "kv" {
