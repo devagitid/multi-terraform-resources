@@ -11,8 +11,8 @@ data "azurerm_client_config" "current" {}
   
 resource "azurerm_key_vault" "kv" {
   name                       = "keyvault01"
-  location                   = module.sqldbresource.azurerm_resource_group.sqldb.location
-  resource_group_name        = module.sqldbresource.azurerm_resource_group.sqldb.name
+  location                   = "eastus"
+  resource_group_name        = "dev-rg"
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = "premium"
   soft_delete_retention_days = 7
