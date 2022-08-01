@@ -6,7 +6,7 @@ module "sqldbresource" {
 source = "../sqldbmodule/"
 resource_env = "dev"
 admin_user     = "devadminuser"
-admin_password = "password123"
+admin_password = "123word@pass#$%^"
 }
 
 data "azurerm_client_config" "current" {}
