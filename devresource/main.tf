@@ -12,7 +12,7 @@ admin_password = "123word@pass#$%^"
 data "azurerm_client_config" "current" {}
   
 resource "azurerm_key_vault" "kv" {
-  name                       = "keyvault01"
+  name                       = "keyvault01899"
   location                   = "eastus"
   resource_group_name        = "dev-rg"
   tenant_id                  = data.azurerm_client_config.current.tenant_id
