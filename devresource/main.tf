@@ -5,6 +5,8 @@ backend "azure" {}
 module "sqldbresource" {
 source = "../sqldbmodule/"
 resource_env = "dev"
+admin_user     = "devadminuser"
+admin_password = "password123"
 }
 
 data "azurerm_client_config" "current" {}
@@ -25,10 +27,10 @@ resource "azurerm_key_vault" "kv" {
    
       tenant_id = data.azurerm_client_config.current.tenant_id
       object_id = data.azurerm_client_config.current.object_id
-      key_permissions               = ["get", "list"]
-      secret_permissions            = ["get", "list"]
-      certificate_permissions       = ["get", "import", "list"]
-      storage_permissions           = ["backup", "get", "list", "recover"]
+      key_permissions               = ["Get", "List"]
+      secret_permissions            = ["Get", "List"]
+      certificate_permissions       = ["Get", "Import", "List"]
+      storage_permissions           = ["Backup", "Get", "List", "Recover"]
     
   }
   
@@ -36,8 +38,8 @@ resource "azurerm_key_vault" "kv" {
 }
 
 resource "azurerm_key_vault_secret" "kv" {
-  name         = module.sqldbresource.output.administrator_login
-  value        = module.sqldbresource.output.administrator_login_password
+  name         = "devadminuser" 
+  value        = "password123"
   key_vault_id = azurerm_key_vault.kv.id
   
   depends_on = [
