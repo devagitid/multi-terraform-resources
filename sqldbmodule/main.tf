@@ -4,6 +4,23 @@ default = "default"
 
 }
 
+variable "resource_env" {
+
+default = "default"
+
+}
+
+variable "admin_user" {
+
+default = "default"
+
+}
+
+variable "admin_password" {
+default = "default"
+
+}
+
 resource "azurerm_resource_group" "sqldb" {
   name     = "${var.resource_env}-rg"
   location = "eastus"
@@ -14,8 +31,29 @@ resource "azurerm_sql_server" "sqldb" {
   resource_group_name          = azurerm_resource_group.sqldb.name
   location                     = azurerm_resource_group.sqldb.location
   version                      = "12.0"
-  administrator_login          = "admin-${var.resource_env}"
-  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+  administrator_login          = "var.admin_user"
+  administrator_login_password = "var.admin_password"
+
+  tags = {
+    environment = var.resource_env
+  }
+}
+
+resource "azurerm_storage_account" "sqldb" {
+  name                     = "${var.resource_env}saacc01"
+
+resource "azurerm_resource_group" "sqldb" {
+  name     = "${var.resource_env}-rg"
+  location = "eastus"
+}
+
+resource "azurerm_sql_server" "sqldb" {
+  name                         = "mssqldbserver-${var.resource_env}"
+  resource_group_name          = azurerm_resource_group.sqldb.name
+  location                     = azurerm_resource_group.sqldb.location
+  version                      = "12.0"
+  administrator_login          = var.admin_user
+  administrator_login_password = var.admin_password
 
   tags = {
     environment = var.resource_env
